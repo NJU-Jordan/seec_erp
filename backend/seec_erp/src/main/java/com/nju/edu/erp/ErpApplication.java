@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.nju.edu.erp.dao")
 public class ErpApplication {
 
+
     public static void main(String[] args) {
         SpringApplication.run(ErpApplication.class, args);
     }
