@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.edu.erp.dao.CollectionSheetDao">
+    <insert id="saveSheet">
+        insert into collection_sheet (id, supplier, operator, remark,total_amount, state, create_time)
+        values (#{id},#{supplier},#{operator},#{remark},#{TotalAmount}, #{state}, #{createTime}) ;
+    </insert>
+
+    <insert id="saveBatchSheetContent" useGeneratedKeys="true" keyProperty="id">
+        insert into collection_sheet_content (collection_sheet_id, pid, total_price, remark) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.collectionSheetId},#{item.pid},#{item.totalPrice},#{item.remark})
+        </foreach>
+    </insert>
+    <update id="updateSheetState">
+        update collection_sheet
+        set state = #{state}
+        where id = #{sheetId}
+    </update>
+
+    <update id="updateSheetStateOnPrev">
+        update collection_sheet
+        set state = #{state}
+        where id = #{sheetId} and state = #{prev}
+    </update>
+
+    <select id="getLatestSheet" resultType="com.nju.edu.erp.model.po.CollectionSheetPO">
+        select * from collection_sheet order by id desc limit 0,1 ;
+    </select>
+
+    <select id="findAllByState" resultType="com.nju.edu.erp.model.po.CollectionSheetPO">
+        select * from collection_sheet where state = #{state}
+    </select>
+
+    <select id="findAllSheet" resultType="com.nju.edu.erp.model.po.CollectionSheetPO">
+        select * from collection_sheet;
+    </select>
+
+    <select id="findContentBySheetId" resultType="com.nju.edu.erp.model.po.CollectionSheetContentPO">
+        select * from collection_sheet_content where collection_sheet_id = #{sheetId};
+    </select>
+
+    <select id="findSheetById" resultType="com.nju.edu.erp.model.po.CollectionSheetPO">
+        select * from collection_sheet where id = #{id};
+    </select>
+    <resultMap id="CollectionSheetPO" type="com.nju.edu.erp.model.po.CollectionSheetPO">
+        <id column="id" property="id"></id>
+        <result column="supplier" property="supplier"></result>
+        <result column="operator" property="operator"></result>
+        <result column="remark" property="remark"></result>
+        <result column="total_amount" property="totalAmount"></result>
+        <result column="state" property="state" ></result>
+        <result column="create_time" property="createTime"></result>
+    </resultMap>
+</mapper>

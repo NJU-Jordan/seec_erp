@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nju.edu.erp.dao.AccountDao">
+    <update id="updateById" parameterType="AccountPO">
+        update account_sheet
+        <set>
+            <if test="name != null">`name` = #{name}, </if>
+            <if test="accountBalance != null">account_balance = #{accountBalance},</if>
+        </set>
+        where id = #{id}
+    </update>
+    <insert id = "createAccount" parameterType="AccountPO">
+        insert into account_sheet (id, `name`, account_balance)
+        values (#{id}, #{name}, #{accountBalance})
+    </insert>
+    <select id = "findById" resultMap="AccountPO">
+        select * from account_sheet where id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="AccountPO">
+        select * from account_sheet
+    </select>
+
+    <delete id="deleteById">
+        delete from account_sheet where id = #{id}
+    </delete>
+    <resultMap id="AccountPO" type="com.nju.edu.erp.model.po.AccountPO">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="account_balance" property="accountBalance"></result>
+    </resultMap>
+</mapper>
