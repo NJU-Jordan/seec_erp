@@ -1,8 +1,5 @@
 package com.nju.edu.erp.model.vo.Pay;
 
-import com.nju.edu.erp.enums.sheetState.PaySheetState;
-import com.nju.edu.erp.model.vo.Collection.CollectionSheetContentVO;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;

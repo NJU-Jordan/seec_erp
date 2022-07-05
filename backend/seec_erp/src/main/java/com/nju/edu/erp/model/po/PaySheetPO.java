@@ -1,7 +1,5 @@
 package com.nju.edu.erp.model.po;
 
-import com.nju.edu.erp.enums.sheetState.PaySheetState;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
